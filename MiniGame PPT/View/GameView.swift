@@ -22,6 +22,7 @@ struct GameView: View {
                         .scaleEffect(x: -1, y: 1)
                     if viewModel.stopGame{
                         WinOrLoseView(winOrLose: viewModel.winOrLose, playerPose: player.lastPose.rawValue, botChoice: viewModel.botChoice.rawValue, playerWins: player.wins, botWins: viewModel.botWins)
+                            .transition(.opacity)
                     }
                     else{
                         Text("\(viewModel.timeElapsed)")
@@ -30,7 +31,6 @@ struct GameView: View {
                 }
             }
             else {
-                Color.black.edgesIgnoringSafeArea(.all)
                 ProgressView("Ligando câmera...")
             }
         }
@@ -56,6 +56,7 @@ struct GameView: View {
         .onAppear {
             viewModel.cameraManager.player = player
         }
+//        .navigationBarBackButtonHidden(true)
     }
 }
 

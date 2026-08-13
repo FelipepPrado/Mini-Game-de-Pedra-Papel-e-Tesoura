@@ -3,12 +3,10 @@ import Vision
 import CoreML
 
 @Observable
-class HandEBodyAnalyzer {
+class HandAnalyzer {
     private let handler = VNSequenceRequestHandler()
-
-    var countBody: Int = 0
     var detectedPose: PPT = .noValue
-
+    
     //Variavel com o modelo
     private let model: PPTModel
     
@@ -23,7 +21,7 @@ class HandEBodyAnalyzer {
             fatalError("Não foi possível carregar o modelo: \(error)")
         }
     }
-
+    
     //Parte onde a câmera devolve frames, já que é em tempo real
     func processFrame(_ pixelBuffer: CVPixelBuffer) {
         //Parte do request, onde eu chamo o Vision para identificar os pontos da mão e analisar
@@ -48,7 +46,7 @@ class HandEBodyAnalyzer {
             return
         }
     }
-
+    
     private func analyseHand(_ handPoseRequest: VNHumanHandPoseObservation) {
         do {
             //Pega os pontos da mão
@@ -60,7 +58,7 @@ class HandEBodyAnalyzer {
             
             DispatchQueue.main.async {
                 //Se o modelo me der uma confiança alta (geralmente acontece isso), eu guardo a pose que ele verificou
-                if handPoseRequest.confidence > 0.95 {
+                if handPoseRequest.confidence > 0.80 {
                     self.detectedPose = self.returnPPT(label: predictionLabel)
                 }
             }
@@ -80,6 +78,6 @@ class HandEBodyAnalyzer {
         default:
             return .noValue
         }
-    
+        
     }
 }

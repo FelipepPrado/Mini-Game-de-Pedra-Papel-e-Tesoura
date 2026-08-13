@@ -15,7 +15,7 @@ class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     var isRunning: Bool = false
     
-    var handAnalyzer = HandEBodyAnalyzer()
+    var handAnalyzer = HandAnalyzer()
     
     let handPoseRequest = VNDetectHumanHandPoseRequest()
     
@@ -73,6 +73,7 @@ class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
     
+    // func do tipo Delegate: Ele é chamado pelo próprio Mac
     func captureOutput(
         _ output: AVCaptureOutput,
         didOutput sampleBuffer: CMSampleBuffer,
@@ -80,11 +81,13 @@ class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     ){
         guard isRunning else { return }
         
+        // guarda "fotos", ou seja, a cada tempo ele pega frame da câmera e guarda
         guard let pixelBuffer =
                 CMSampleBufferGetImageBuffer(sampleBuffer)
         else {
             return
         }
+        
         
         let ciImage = CIImage(
             cvPixelBuffer: pixelBuffer
@@ -101,6 +104,7 @@ class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
             self.currentFrame = cgImage
         }
         
+        //Manda para o handAnalyzer o buffer para fazer a analise de todas as imagens
         handAnalyzer.processFrame(pixelBuffer)
     }
 }

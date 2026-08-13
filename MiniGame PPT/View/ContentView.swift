@@ -8,10 +8,31 @@ struct ContentView: View {
         NavigationStack(path: $path.path){
             ZStack{
                 Color.white.ignoresSafeArea()
-                NavigationLink(destination: GameView()){
-                    Text("Jogar")
-                        .foregroundStyle(Color.black)
+                VStack(spacing: 15){
+                    VStack{
+                        Text("Pedra Papel e Tesoura")
+                            .font(.system(size: 30))
+                            .foregroundStyle(Color.black)
+                        HStack{
+                            Text("📄")
+                                .font(.system(size: 15))
+                            Text("🪨")
+                                .font(.system(size: 15))
+                            Text("✂️")
+                                .font(.system(size: 15))
+                        }
+                    }
+                    Button("Jogar") {
+                        viewRouter.playGame()
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.glassProminent)
+                    .tint(.black)
                 }
+            }
+            .navigationDestination(for: NameViews.self){
+                destination in
+                ViewManagar.viewForDestination(destination)
             }
         }
     }
