@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     @Environment(ViewRouter.self) var viewRouter
     
     var body: some View {
@@ -8,25 +8,29 @@ struct ContentView: View {
         NavigationStack(path: $path.path){
             ZStack{
                 Color.white.ignoresSafeArea()
-                VStack(spacing: 15){
-                    VStack{
+                VStack(spacing: 20){
+                    VStack(spacing: 10){
                         Text("Pedra Papel e Tesoura")
+                            .bold()
                             .font(.system(size: 30))
                             .foregroundStyle(Color.black)
                         HStack{
                             Text("📄")
-                                .font(.system(size: 15))
+                                .font(.system(size: 28))
                             Text("🪨")
-                                .font(.system(size: 15))
+                                .font(.system(size: 28))
                             Text("✂️")
-                                .font(.system(size: 15))
+                                .font(.system(size: 28))
                         }
                     }
-                    Button("Jogar") {
+                    Button {
                         viewRouter.playGame()
+                    } label: {
+                        Text("Jogar")
+                        .frame(width: 50, height: 25)
+                        .font(Font.system(size: 16))
                     }
                     .buttonStyle(.borderedProminent)
-                    .buttonStyle(.glassProminent)
                     .tint(.black)
                 }
             }
@@ -39,5 +43,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }

@@ -4,6 +4,8 @@ internal import Combine
 
 struct GameView: View {
     @Environment(Player.self) var player
+    @Environment(ViewRouter.self) var viewRouter
+    
     @State private var viewModel = ViewModel()
     @State private var cameraManager = CameraManager()
     

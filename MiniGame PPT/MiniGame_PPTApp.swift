@@ -4,7 +4,7 @@ import SwiftUI
 struct MiniGame_PPTApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
 
         }
         .environment(Player())

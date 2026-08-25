@@ -34,7 +34,7 @@ enum ViewManagar {
     static func viewForDestination(_ destination: NameViews) -> some View {
         switch destination {
         case .Init:
-            ContentView()
+            HomeView()
         case .GameView:
             GameView()
         }

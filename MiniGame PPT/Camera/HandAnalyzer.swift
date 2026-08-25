@@ -51,13 +51,13 @@ class HandAnalyzer {
         do {
             //Pega os pontos da mão
             let keypointsMultiArray = try handPoseRequest.keypointsMultiArray()
+            
             //Retorna a resposta do modelo a imagem
             let prediction = try model.prediction(input: PPTModelInput(poses: keypointsMultiArray))
-            
             let predictionLabel = prediction.label
             
             DispatchQueue.main.async {
-                //Se o modelo me der uma confiança alta (geralmente acontece isso), eu guardo a pose que ele verificou
+                //Se o modelo me der uma confiança alta (geralmente acontece isso), eu guardo a pose
                 if handPoseRequest.confidence > 0.80 {
                     self.detectedPose = self.returnPPT(label: predictionLabel)
                 }
